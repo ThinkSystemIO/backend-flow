@@ -5,11 +5,11 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/adamavix/thinksystem/package/flow"
-	"github.com/adamavix/thinksystem/package/flow/command"
-	"github.com/adamavix/thinksystem/package/response"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
+	"github.com/thinksystemio/package/flow"
+	"github.com/thinksystemio/package/flow/command"
+	"github.com/thinksystemio/package/response"
 	"nhooyr.io/websocket"
 )
 
