@@ -1,15 +1,43 @@
+timeout: 1200s
+
 steps:
-  # Build the container image
+  # Build
   - name: "gcr.io/cloud-builders/docker"
     args:
-      [
-        "build",
-        "--build-arg",
-        "PAT=${_PAT}",
-        "-t",
-        "gcr.io/$PROJECT_ID/backend-flow",
-        ".",
-      ]
-  # Push the container image to Container Registry
+      - "build"
+      - "--build-arg"
+      - "PAT=${_PAT}"
+      - "-t"
+      - "gcr.io/$PROJECT_ID/backend-flow"
+      - "."
+
+  # Push
   - name: "gcr.io/cloud-builders/docker"
-    args: ["push", "gcr.io/$PROJECT_ID/backend-flow"]
+    args:
+      - push
+      - gcr.io/$PROJECT_ID/backend-flow
+
+  # # Connect
+  # - name: "gcr.io/cloud-builders/kubectl"
+  #   args:
+  #     - cluster-info
+  #   env:
+  #     - CLOUDSDK_COMPUTE_ZONE=us-central1-c
+  #     - CLOUDSDK_CONTAINER_CLUSTER=thinksystem
+  #     - KUBECONFIG=/workspace/.kube/config
+
+  # - name: gcr.io/$PROJECT_ID/helm
+  #   entrypoint: "bash"
+  #   args:
+  #     - "-c"
+  #     - |
+  #     - echo {$_KEY} | helm registry login -u _json_key_base64 --password-stdin https://us-central1-docker.pkg.dev
+  #     - helm chart pull us-central1-docker.pkg.dev/${PROJECT_ID}/repo/thinksystem:0.1.0
+  #     - helm chart export us-central1-docker.pkg.dev/${PROJECT_ID}/repo/thinksystem:0.1.0
+  #     - helm upgrade thinksystem-${_ENV} thinksystem -n ${_ENV} -f thinksystem/values-${_ENV}.yaml
+  #   env:
+  #     - CLOUDSDK_COMPUTE_ZONE=us-central1-c
+  #     - CLOUDSDK_CONTAINER_CLUSTER=thinksystem
+  #     - "TILLERLESS=true"
+  #     - "TILLER_NAMESPACE=test"
+  #     - KUBECONFIG=/workspace/.kube/config
