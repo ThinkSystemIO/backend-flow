@@ -7,9 +7,9 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
-	"github.com/thinksystemio/package/flow"
-	"github.com/thinksystemio/package/flow/command"
-	"github.com/thinksystemio/package/response"
+	flow "github.com/thinksystemio/package-flow"
+	"github.com/thinksystemio/package-flow/command"
+	response "github.com/thinksystemio/package-response"
 	"nhooyr.io/websocket"
 )
 
