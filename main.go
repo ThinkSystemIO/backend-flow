@@ -32,7 +32,7 @@ func main() {
 	r.Post("/api", HandleAPI)
 	r.HandleFunc("/api/{node}", HandleWebsocketAPI)
 
-	http.ListenAndServe(":81", r)
+	http.ListenAndServe(":80", r)
 }
 
 func SendWithStatusCode(w http.ResponseWriter, data interface{}, code int) {
