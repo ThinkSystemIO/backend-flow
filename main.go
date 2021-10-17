@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"io/ioutil"
 	"net/http"
 
@@ -19,7 +18,6 @@ var ws = WebSocket{
 	Subscribers: map[*websocket.Conn]struct{}{},
 }
 
-// Main
 func main() {
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
@@ -33,13 +31,6 @@ func main() {
 	r.HandleFunc("/api/{node}", HandleWebsocketAPI)
 
 	http.ListenAndServe(":80", r)
-}
-
-func SendWithStatusCode(w http.ResponseWriter, data interface{}, code int) {
-	w.Header().Set("Content-Type", "application/json; charset=utf-8")
-	w.WriteHeader(code)
-	encoder := json.NewEncoder(w)
-	encoder.Encode(data)
 }
 
 // Echo allows pinging of this service
@@ -86,5 +77,5 @@ func HandleAPI(w http.ResponseWriter, r *http.Request) {
 	data := flow.DispatchFromJSON(tree, JSON)
 	ws.WriteSubscribers()
 
-	SendWithStatusCode(w, data, http.StatusOK)
+	response.SendDataWithStatusCode(w, data, http.StatusOK)
 }
