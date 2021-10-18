@@ -22,8 +22,8 @@ func main() {
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
 
-	r.Get("/", NotFound)
-	r.Get("/echo", Echo)
+	r.Get("/", Echo)
+	r.Get("/*", NotFound)
 
 	r.Get("/api/echo", Echo)
 	r.Get("/api/tree", HandleTree)
